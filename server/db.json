@@ -4,26 +4,29 @@
       "id": "603e",
       "title": "Task 1",
       "description": "Description Task 1",
-      "isDone": false
-      "status": "todo"
+      "isDone": false,
+      "status": "in-progress"
     },
     {
       "id": "3098",
       "title": "Task 2",
       "description": "Description Task 2",
-      "isDone": false
+      "isDone": false,
+      "status": "completed"
     },
     {
       "id": "3ffb",
       "title": "Task 3",
       "description": "Description Task 3",
-      "isDone": false
+      "isDone": false,
+      "status": "todo"
     },
     {
       "id": "3506",
       "title": "Delete Task",
       "description": "Delete",
-      "isDone": false
+      "isDone": false,
+      "status": "todo"
     }
   ]
 }
