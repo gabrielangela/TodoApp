@@ -1,15 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function TodoForm({ onSubmit }) {
+export default function TodoForm({ onSubmit, editData, onUpdate }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  useEffect(() => {
+    if (editData) {
+      setTitle(editData.title)
+      setDescription(editData.description)
+    }
+  }, [editData])
+  
   function handleSubmit(e) {
     e.preventDefault();
     if (!title || !description) return;
-    onSubmit({ title, description, isDone: false });
-    setTitle("");
-    setDescription("");
+
+    const todo = {
+      title,
+      description,
+      isDone: editData?.isDone || false,
+    }
+
+    if (editData) {
+      todo.id = editData.id
+      onUpdate(todo)
+    } else {
+      onSubmit(todo)
+    }
+
+    setTitle("")
+    setDescription("")
   }
 
   return (
