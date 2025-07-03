@@ -18,7 +18,8 @@ export default function TodoForm({ onSubmit, editData, onUpdate }) {
     const todo = {
       title,
       description,
-      isDone: editData?.isDone || false,
+      isDone:false,
+      status: "todo",
     }
 
     if (editData) {

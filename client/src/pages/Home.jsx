@@ -68,34 +68,60 @@ export default function Home() {
     console.error("Error updating todo:", err)
   }}
 
+  // UPDATE status todo
+  async function updateStatus(id, status) {
+    try {
+      const res = await fetch(`http://localhost:3001/todos/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      })
+      const data = await res.json()
+      setTodos(prev => prev.map(todo => todo.id === id ? data : todo))
+    } catch (err) {
+      console.error('Failed to update status', err)
+    }
+  }
+
 
   useEffect(() => {
     fetchTodos()
   }, [])
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Todo App</h1>
-      <TodoForm 
-      onSubmit={addTodo}
-      editData={editTodo}
-      onUpdate={updateTodo}
-      />
-      <div className="mt-4 space-y-4">
-        {todos.map(todo => (
-          <TodoCard
-            key={todo.id}
-            todo={todo}
-            onEdit={() => handleEdit(todo)}
-            onDelete={() => {
-                if (confirm("Are you sure you want to delete this task?")) {
-                    deleteTodo(todo.id)
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {["todo", "in-progress", "completed"].map((status) => (
+        <div key={status}>
+          <h2 className="text-xl font-semibold mb-2">
+            {status === "todo" && "🟡 To Do"}
+            {status === "in-progress" && "🔵 In Progress"}
+            {status === "completed" && "🟢 Completed"}
+          </h2>
+          {todos
+          .filter((todo) => todo.status === status)
+          .map((todo) => (
+            <TodoCard
+              key={todo.id}
+              todo={todo}
+              onEdit={() => handleEdit(todo)}
+              onDelete={() => {
+                if (confirm("Are you sure?")) {
+                  deleteTodo(todo.id)
                 }
-            }}
-            onCheck={() => {}}
-          />
-        ))}
-      </div>
+              }}
+              onCheck={() =>
+              updateStatus(todo.id,
+                todo.status === "todo"
+                ? "in-progress"
+                : todo.status === "in-progress"
+                ? "completed"
+                : "todo"
+              )
+              }
+            />
+          ))}
+        </div>
+      ))}
     </div>
   )
 }

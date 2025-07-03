@@ -5,6 +5,7 @@
       "title": "Task 1",
       "description": "Description Task 1",
       "isDone": false
+      "status": "todo"
     },
     {
       "id": "3098",
