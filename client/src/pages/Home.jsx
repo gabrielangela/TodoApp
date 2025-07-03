@@ -60,7 +60,11 @@ export default function Home() {
             key={todo.id}
             todo={todo}
             onEdit={() => {}}
-            onDelete={() => deleteTodo(todo.id)}
+            onDelete={() => {
+                if (confirm("Are you sure you want to delete this task?")) {
+                    deleteTodo(todo.id)
+                }
+            }}
             onCheck={() => {}}
           />
         ))}
