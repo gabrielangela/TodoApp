@@ -33,6 +33,19 @@ export default function Home() {
     }
   }
 
+  // DELETE todo task
+    async function deleteTodo(id) {
+        try {
+            await fetch(`http://localhost:3001/todos/${id}`, {
+                method: 'DELETE',
+            })
+            setTodos(prev => prev.filter(todo => todo.id !== id))
+        } catch (error) {
+            console.error("Error deleting todo:", error)
+        }
+    }   
+
+
   useEffect(() => {
     fetchTodos()
   }, [])
@@ -47,7 +60,7 @@ export default function Home() {
             key={todo.id}
             todo={todo}
             onEdit={() => {}}
-            onDelete={() => {}}
+            onDelete={() => deleteTodo(todo.id)}
             onCheck={() => {}}
           />
         ))}
