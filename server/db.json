@@ -5,14 +5,14 @@
       "title": "Task 1",
       "description": "Description Task 1",
       "isDone": false,
-      "status": "in-progress"
+      "status": "completed"
     },
     {
       "id": "3098",
       "title": "Task 2",
       "description": "Description Task 2",
       "isDone": false,
-      "status": "completed"
+      "status": "todo"
     },
     {
       "id": "3ffb",
@@ -26,7 +26,7 @@
       "title": "Delete Task",
       "description": "Delete",
       "isDone": false,
-      "status": "todo"
+      "status": "in-progress"
     }
   ]
 }

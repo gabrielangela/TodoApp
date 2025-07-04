@@ -34,7 +34,7 @@ export default function TodoForm({ onSubmit, editData, onUpdate }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
+    <form onSubmit={handleSubmit} className="bg-white shadow p-4 rounded mb-4">
       <input
         type="text"
         placeholder="Task title"

@@ -5,6 +5,8 @@ import TodoCard from '../components/TodoCard'
 export default function Home() {
   const [todos, setTodos] = useState([])
   const [editTodo, setEditTodo] = useState(null)
+  const [showForm, setShowForm] = useState(false)
+  const [formStatus, setFormStatus] = useState(null)
 
   // GET todos from JSON server
   async function fetchTodos() {
@@ -97,6 +99,8 @@ export default function Home() {
             {status === "in-progress" && "🔵 In Progress"}
             {status === "completed" && "🟢 Completed"}
           </h2>
+
+          {/* Render todo per kolom */}
           {todos
           .filter((todo) => todo.status === status)
           .map((todo) => (
@@ -120,6 +124,30 @@ export default function Home() {
               }
             />
           ))}
+
+          {/* Add Task, hanya muncul kalau formStatus === status */}
+          {formStatus === "status" && (
+            <div className="bg-white rounded-xl shadow p-4 mb-4">
+              <TodoForm
+              onSubmit={(todo) => {
+                addTodo({ ...todo, status }) // Inject status dari kolom
+                setFormStatus(null)
+              }}
+              editData={editTodo}
+              onUpdate={updateTodo}
+              />
+            </div>
+          )}
+
+          {/* Tombol Add Task hanya muncul kalau form belum dibuka */}
+          {formStatus !== status && (
+            <div
+              onClick={() => setFormStatus(status)}
+              className="cursor-pointer bg-white rounded-xl shadow p-4 mt-2 text-center text-gray-500 text-sm font-semibold hover:bg-gray-50">
+              + Add Task
+            </div>
+          )}
+
         </div>
       ))}
     </div>
