@@ -1,36 +1,33 @@
 import { useEffect, useState } from 'react';
 
-export default function TodoForm({ onSubmit, editData, onUpdate }) {
+export default function TodoForm({ onSubmit, editData }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (editData) {
-      setTitle(editData.title)
-      setDescription(editData.description)
+      setTitle(editData.title);
+      setDescription(editData.description);
+    } else {
+      setTitle("");
+      setDescription("");
     }
-  }, [editData])
-  
+  }, [editData]);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!title || !description) return;
 
     const todo = {
       title,
-      description,
-      isDone:false,
-      status: "todo",
-    }
+      description
+    };
 
     if (editData) {
-      todo.id = editData.id
-      onUpdate(todo)
-    } else {
-      onSubmit(todo)
+      todo.id = editData.id;
     }
 
-    setTitle("")
-    setDescription("")
+    onSubmit(todo);
   }
 
   return (
@@ -49,7 +46,7 @@ export default function TodoForm({ onSubmit, editData, onUpdate }) {
         className="border p-2 rounded w-full mb-2"
       />
       <button type="submit" className="bg-gray-800 text-white px-4 py-2 rounded">
-        Add Task
+        {editData ? "Update Task" : "Add Task"}
       </button>
     </form>
   );

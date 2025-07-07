@@ -51,6 +51,7 @@ export default function Home() {
   // EDIT todo task
   function handleEdit(todo) {
     setEditTodo(todo)
+    setFormStatus(todo.status)
   }
 
   async function updateTodo(updatedTodo) {
@@ -126,12 +127,19 @@ export default function Home() {
           ))}
 
           {/* Add Task, hanya muncul kalau formStatus === status */}
-          {formStatus === "status" && (
+          {formStatus === status && (
             <div className="bg-white rounded-xl shadow p-4 mb-4">
               <TodoForm
-              onSubmit={(todo) => {
-                addTodo({ ...todo, status }) // Inject status dari kolom
+              onSubmit={async (todo) => {
+                if (editTodo) {
+                  // mode edit pastikan status tidak hilang
+                  await updateTodo({ ...editTodo, ...todo, status: editTodo.status })
+                } else {
+                  // mode add
+                  await addTodo({ ...todo, status })
+                }
                 setFormStatus(null)
+                setEditTodo(null)
               }}
               editData={editTodo}
               onUpdate={updateTodo}
