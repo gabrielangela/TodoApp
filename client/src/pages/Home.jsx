@@ -94,8 +94,8 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {["todo", "in-progress", "completed"].map((status) => (
-        <div key={status}>
-          <h2 className="text-xl font-semibold mb-2">
+        <div key={status} className="bg-white rounded-xl shadow p-4 border border-gray-200">
+          <h2 className="text-xl font-semibold mb-4">
             {status === "todo" && "🟡 To Do"}
             {status === "in-progress" && "🔵 In Progress"}
             {status === "completed" && "🟢 Completed"}
